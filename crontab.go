@@ -109,7 +109,7 @@ func (c *Crontab) AddNamedJob(name string, schedule string, fn interface{}, args
 
 		if t1 != t2 {
 			if t1.Kind() != reflect.Interface {
-				return fmt.Errorf("Param with index %d shold be `%s` not `%s`", i, t1, t2)
+				return fmt.Errorf("Param with index %d should be `%s` not `%s`", i, t1, t2)
 			}
 			if !t2.Implements(t1) {
 				return fmt.Errorf("Param with index %d of type `%s` doesn't implement interface `%s`", i, t2, t1)
@@ -122,6 +122,11 @@ func (c *Crontab) AddNamedJob(name string, schedule string, fn interface{}, args
 	j.args = args
 	c.jobs[name] = j
 	return nil
+}
+
+// RemoveJob removes a job identified by its name from the scheduler
+func (c *Crontab) RemoveJob(name string) {
+	delete(c.jobs, name)
 }
 
 // MustAddJob is like AddJob but panics if there is an problem with job

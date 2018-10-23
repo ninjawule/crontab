@@ -1,3 +1,16 @@
+# About this fork
+
+```md
+This fork is about adding some functionalities, that the original, excellent [project](github.com/mileusna/crontab) by [mileusna](github.com/mileusna) does not have yet:
+
+* re-scheduling running jobs: by using `AddNamedJob` again
+* stopping running jobs: by using `RemoveJob`
+
+The rest of the README below directly comes from the original [repo](github.com/mileusna/crontab) by [mileusna](github.com/mileusna).
+```
+
+---
+
 # Go/Golang package for Crontab tickers [![GoDoc](https://godoc.org/github.com/mileusna/crontab?status.svg)](https://godoc.org/github.com/mileusna/crontab)
 
 This package provides crontab tickers to golang apps, supporting crontab-like syntax like `* * * * *` or `*/2 * * * *` etc.
@@ -28,7 +41,7 @@ func main() {
     if err != nil {
         log.Println(err)
         return
-    }    
+    }
 
     // MustAddJob is like AddJob but panics on wrong syntax or problems with func/args
     // This aproach is similar to regexp.Compile and regexp.MustCompile from go's standard library,  used for easier initialization on startup
@@ -36,7 +49,7 @@ func main() {
     ctab.MustAddJob("0 12 * * *", myFunc3) // noon lauch
 
     // fn with args
-    ctab.MustAddJob("0 0 * * 1,2", myFunc2, "Monday and Tuesday midnight", 123) 
+    ctab.MustAddJob("0 0 * * 1,2", myFunc2, "Monday and Tuesday midnight", 123)
     ctab.MustAddJob("*/5 * * * *", myFunc2, "every five min", 0)
 
     // all your other app code as usual, or put sleep timer for demo
@@ -64,7 +77,7 @@ If you are not faimiliar with crontab syntax you might be better off with other 
 Here are the few quick references about crontab simple but powerful syntax.
 
 ```
-*     *     *     *     *        
+*     *     *     *     *
 
 ^     ^     ^     ^     ^
 |     |     |     |     |
@@ -94,11 +107,8 @@ Here are the few quick references about crontab simple but powerful syntax.
 + `*/2 * * * *` run every two minutes
 + `10 */3 * * *` run every 3 hours on 10th min
 + `0 12 */2 * *` run at noon on every two days
-+ `1-59/2 * * * *` run every two minutes, but on odd minutes
++ `1-59/2 * * *` run every two minutes, but on odd minutes
 
 ## Notice
 
 There is no way to reschedule or to remove single job from crontab during runtime with crontab package. (Re)create new instance of crontab or use `crontab.Clear()` function and then add jobs again to reschedule during runtime.
-
-
-
